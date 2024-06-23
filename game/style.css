@@ -1,0 +1,61 @@
+body {
+    background-color: rgb(238, 189, 129);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+    overflow: hidden;
+    font-family: 'Arial', sans-serif;
+    transition: background-color 1s;
+    animation-name: changecolor;
+    animation-duration: 10s;
+    animation-iteration-count: infinite;
+}
+
+h1 {
+    font-size: 2em;
+    margin-bottom: 10px;
+    color: #ffffff;
+    text-shadow: 2px 2px 4px #000000;
+}
+
+p {
+    font-size: 1.2em;
+    color: #ffffff;
+    text-shadow: 2px 2px 4px #000000;
+    margin-bottom: 20px;
+}
+
+#arrowId {
+    position: absolute;
+    width: 100px;
+    top: -100%;
+    left: 50%;
+    transform: translateX(-50%);
+    animation-name: downAnmia;
+    animation-duration: 3s;
+    animation-iteration-count: infinite;
+    filter: drop-shadow(2px 4px 6px black);
+    transition: width 0.5s, filter 0.5s;
+}
+
+#arrowId:hover {
+    width: 120px;
+    filter: drop-shadow(4px 8px 12px black);
+}
+
+@keyframes downAnmia {
+    0% {
+        top: -100%;
+    }
+    100% {
+        top: 100%;
+    }
+}
+@keyframes changecolor {
+    0%{background-color: antiquewhite;}
+    100%{background-color: red;}
+    
+}

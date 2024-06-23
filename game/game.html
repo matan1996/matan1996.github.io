@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"> <!-- קובע את קידוד התווים למסמך ל-UTF-8 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- מאפשר רספונסיביות על ידי הגדרת רוחב המסך לרוחב המכשיר -->
+    <title>Arrow Game</title> <!-- כותרת הדף -->
+    <link rel="stylesheet" href="game.css"> <!-- קישור לקובץ ה-CSS החיצוני -->
+</head>
+<body>
+    <h1 id="scoreId">Score: 0</h1> <!-- אלמנט כותרת להצגת הניקוד -->
+    <p>Press the arrow on the keyboard when you see it on the screen</p> <!-- פסקה עם הוראות משחק -->
+    <img id="arrowId" src="" alt="Arrow Image"> <!-- אלמנט תמונה להצגת החץ -->
+
+    <script>
+        let scoreElement = document.getElementById('scoreId'); // קבלת אלמנט הניקוד
+        let arrowElement = document.getElementById('arrowId'); // קבלת אלמנט החץ
+        let score = 0; // משתנה לניקוד
+        let arrows = [
+            'https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/Arrow_left.svg/1280px-Arrow_left.svg.png', // חץ שמאלה
+            'https://cdn-icons-png.flaticon.com/512/2/2231.png', // חץ למעלה
+            'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/Arrow_right.svg/1280px-Arrow_right.svg.png', // חץ ימינה
+            'https://clipart-library.com/img1/1236729.png', // חץ למטה
+        ];
+        let picked = 0; // משתנה לשמירת החץ שנבחר
+
+        setInterval(pickImage, 3000); // קריאה לפונקציה pickImage כל 3 שניות
+        setInterval(changeBackgroundColor, 5000); // קריאה לפונקציה changeBackgroundColor כל 5 שניות
+
+        function pickImage() {
+            picked = randomInteger(0, 3); // בחירת מספר רנדומלי בין 0 ל-3
+            arrowElement.setAttribute('src', arrows[picked]); // שינוי התמונה לחץ שנבחר
+        }
+
+        function randomInteger(min, max) {
+            return Math.floor(Math.random() * (max - min + 1)) + min; // יצירת מספר רנדומלי בין min ל-max
+        }
+
+        addEventListener('keydown', checkKey); // הוספת מאזין לאירוע keydown
+
+        function checkKey(info) {
+            let userPicked = 0; // משתנה לשמירת בחירת המשתמש
+            if (info.key == 'ArrowLeft') { // אם המשתמש לחץ על חץ שמאלה
+                userPicked = 0;
+            } else if (info.key == 'ArrowUp') { // אם המשתמש לחץ על חץ למעלה
+                userPicked = 1;
+            } else if (info.key == 'ArrowRight') { // אם המשתמש לחץ על חץ ימינה
+                userPicked = 2;
+            } else if (info.key == 'ArrowDown') { // אם המשתמש לחץ על חץ למטה
+                userPicked = 3;
+            } else {
+                return; // אם לא לחץ על חץ, יציאה מהפונקציה
+            }
+
+            if (userPicked == picked) { // אם הבחירה של המשתמש נכונה
+                updateScore(score + 1); // עדכון הניקוד
+            } else {
+                updateScore(0); // איפוס הניקוד
+                alert('Game over!'); // הצגת הודעת סיום משחק
+            }
+        }
+
+        function updateScore(newScore) {
+            score = newScore; // עדכון הניקוד במשתנה
+            scoreElement.innerHTML = 'Score: ' + score; // עדכון הטקסט של הניקוד
+        }
+
+        function changeBackgroundColor() {
+            let colors = ['#FF6633', '#FFB399', '#FF33FF', '#FFFF99', '#00B3E6', 
+                          '#E6B333', '#3366E6', '#999966', '#99FF99', '#B34D4D',
+                          '#80B300', '#809900', '#E6B3B3', '#6680B3', '#66991A', 
+                          '#FF99E6', '#CCFF1A', '#FF1A66', '#E6331A', '#33FFCC',
+                          '#66994D', '#B366CC', '#4D8000', '#B33300', '#CC80CC', 
+                          '#66664D', '#991AFF', '#E666FF', '#4DB3FF', '#1AB399',
+                          '#E666B3', '#33991A', '#CC9999', '#B3B31A', '#00E680', 
+                          '#4D8066', '#809980', '#E6FF80', '#1AFF33', '#999933',
+                          '#FF3380', '#CCCC00', '#66E64D', '#4D80CC', '#9900B3', 
+                          '#E64D66', '#4DB380', '#FF4D4D', '#99E6E6', '#6666FF']; // מערך של צבעים
+            let randomColor = colors[Math.floor(Math.random() * colors.length)]; // בחירת צבע רנדומלי מהמארך
+            document.body.style.backgroundColor = randomColor; // שינוי צבע הרקע לצבע שנבחר
+        }
+    </script>
+</body>
+</html>
